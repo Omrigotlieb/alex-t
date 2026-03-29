@@ -583,6 +583,7 @@
     /* ─── Yes button → Celebration ─── */
     document.getElementById('yesBtn').addEventListener('click', () => {
       document.getElementById('celebration').classList.add('show');
+      noBtn.style.display = 'none';
       launchConfetti();
       spawnFloatingEmojis();
     });
@@ -596,6 +597,7 @@
       // Hide celebration, show main card
       document.getElementById('celebration').classList.remove('show');
       document.getElementById('mainCard').style.display = '';
+      noBtn.style.display = 'block';
       // Re-place No button
       const yr = document.getElementById('yesBtn').getBoundingClientRect();
       placeNoBtn(yr.right + 24, yr.top);

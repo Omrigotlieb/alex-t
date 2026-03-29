@@ -708,9 +708,11 @@
     const afikoman = document.getElementById('afikoman');
     document.getElementById('matzaBtn').addEventListener('click', () => {
       afikoman.classList.add('show');
+      noBtn.style.display = 'none';
     });
     document.getElementById('afikClose').addEventListener('click', () => {
       afikoman.classList.remove('show');
+      noBtn.style.display = 'block';
     });
 
     /* ─── Matrix Rain ─── */

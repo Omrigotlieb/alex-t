@@ -248,8 +248,7 @@
     #matzaBtn {
       position: fixed;
       left: 24px;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 24px;
       font-size: 2.4rem;
       background: none;
       border: none;
@@ -261,29 +260,80 @@
       line-height: 1;
     }
     #matzaBtn:hover {
-      transform: translateY(-50%) scale(1.2) rotate(-8deg);
+      transform: scale(1.2) rotate(-8deg);
       filter: drop-shadow(0 6px 20px rgba(255,209,102,0.6));
     }
 
-    /* ── Lightbox ── */
-    #lightbox {
+    /* ── Afikoman Page ── */
+    #afikoman {
       position: fixed;
       inset: 0;
       z-index: 3000;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
+      background: linear-gradient(135deg, #2d1a00 0%, #5c3600 50%, #2d1a00 100%);
       display: none;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      overflow-y: auto;
     }
-    #lightbox.show { display: flex; }
-    #lightbox img {
-      max-width: 88vw;
-      max-height: 88vh;
+    #afikoman.show { display: flex; }
+
+    .afik-card {
+      text-align: center;
+      padding: 48px 32px;
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+      max-width: 480px;
+      width: 90%;
+    }
+
+    .afik-emoji {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 16px;
+      animation: wiggle 2s ease-in-out infinite;
+    }
+
+    .afik-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      color: #fff8e7;
+      line-height: 1.15;
+      margin-bottom: 28px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+    .afik-title span {
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(255,209,102,0.5);
+    }
+
+    .afik-img {
+      width: 100%;
       border-radius: 16px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
-      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.6);
+      margin-bottom: 24px;
+      border: 3px solid rgba(255,209,102,0.3);
+    }
+
+    .afik-sub {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .afik-close {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1rem;
+      padding: 12px 32px;
+      background: rgba(255,255,255,0.12);
+      color: #fff8e7;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .afik-close:hover {
+      background: rgba(255,255,255,0.22);
+      transform: scale(1.05);
     }
 
     /* ── Hacker Screen ── */
@@ -404,9 +454,15 @@
   <!-- Matza easter egg -->
   <button id="matzaBtn" title="🫓">🫓</button>
 
-  <!-- Lightbox -->
-  <div id="lightbox">
-    <img src="matza.jpeg" alt="Matza Alex" />
+  <!-- Afikoman page -->
+  <div id="afikoman">
+    <div class="afik-card">
+      <div class="afik-emoji">🫓</div>
+      <div class="afik-title">You found the<br/><span>Afikoman!</span></div>
+      <img src="matza.jpeg" alt="Matza Alex" class="afik-img" />
+      <div class="afik-sub">Now give it back 😤</div>
+      <button class="afik-close" id="afikClose">Hide it again 🙈</button>
+    </div>
   </div>
 
   <!-- Main card -->
@@ -648,13 +704,13 @@
       }
     }
 
-    /* ─── Matza Lightbox ─── */
-    const lightbox = document.getElementById('lightbox');
+    /* ─── Afikoman ─── */
+    const afikoman = document.getElementById('afikoman');
     document.getElementById('matzaBtn').addEventListener('click', () => {
-      lightbox.classList.add('show');
+      afikoman.classList.add('show');
     });
-    lightbox.addEventListener('click', () => {
-      lightbox.classList.remove('show');
+    document.getElementById('afikClose').addEventListener('click', () => {
+      afikoman.classList.remove('show');
     });
 
     /* ─── Matrix Rain ─── */
